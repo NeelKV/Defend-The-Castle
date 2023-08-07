@@ -6,6 +6,7 @@ public class Spawner : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] enemyReference;
+    public static List<Enemy> enemyList = new List<Enemy>();
 
     private GameObject spawnerEnemy;
 
@@ -29,6 +30,29 @@ public class Spawner : MonoBehaviour
         
     }
 
+    public static Enemy GetClosestEnemy(Vector3 position, float maxRange)
+    {
+        Debug.Log("getclosestenemy called");
+        Enemy closest = null;
+        foreach(Enemy enemy in enemyList)
+        {
+            Debug.Log("inside for loop");
+            if (enemy != null) continue;
+            if(Vector3.Distance(position, enemy.transform.position) <= maxRange)
+            {
+                if(closest == null) closest = enemy;
+            } else
+            {
+                if(Vector3.Distance(position, enemy.transform.position) < Vector3.Distance(position, closest.transform.position))
+                {
+                    closest = enemy;
+                }
+            }
+        }
+        Debug.Log("returning closest enemy");
+        return closest;
+    }
+
     IEnumerator spawnMonster()
     {
         while (monsterCount > 0)
@@ -39,6 +63,7 @@ public class Spawner : MonoBehaviour
             randomSide = Random.Range(0, posReference.Length);
 
             spawnerEnemy = Instantiate(enemyReference[randomIndex]);
+            enemyList.Add(spawnerEnemy.GetComponent<Enemy>());
             monsterCount--;
 
             spawnerEnemy.transform.position = posReference[randomSide].position;
