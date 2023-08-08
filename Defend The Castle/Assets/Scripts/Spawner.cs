@@ -33,20 +33,20 @@ public class Spawner : MonoBehaviour
     public static Enemy GetClosestEnemy(Vector3 position, float maxRange)
     {
         Debug.Log("getclosestenemy called");
-        Enemy closest = null;
+        Enemy closest =  null;
         foreach(Enemy enemy in enemyList)
         {
             Debug.Log("inside for loop");
-            if (enemy != null) continue;
-            if(Vector3.Distance(position, enemy.transform.position) <= maxRange)
+            if (enemy == null) break;
+            if (Vector3.Distance(position, enemy.transform.position) <= maxRange && closest == null)
             {
-                if(closest == null) closest = enemy;
-            } else
-            {
-                if(Vector3.Distance(position, enemy.transform.position) < Vector3.Distance(position, closest.transform.position))
-                {
                     closest = enemy;
-                }
+                    Debug.Log("Closest enemy set");
+             
+            } else if(Vector3.Distance(position, enemy.transform.position) < Vector3.Distance(position, closest.transform.position))
+            {
+                    closest = enemy;
+               
             }
         }
         Debug.Log("returning closest enemy");
