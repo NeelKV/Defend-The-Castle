@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2004352626756390586}
   - component: {fileID: 58410867665401787}
   - component: {fileID: 7959490186733596559}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Red_Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -146,4 +146,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 734c2940d5a4d8c40bc0c16447a85d8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  centerPoint: {fileID: 0}
