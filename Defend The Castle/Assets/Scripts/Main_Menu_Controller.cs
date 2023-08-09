@@ -7,14 +7,13 @@ using UnityEngine.SceneManagement;
 public class Main_Menu_Controller : MonoBehaviour
 {
 
-    public TextMeshProUGUI text;
+    public TextMeshProUGUI coinCount_text;
     private string LEVEL_SCENE = "Level";
     private string HOW_TO_PLAY_SCENE = "How To Play";
 
-
     private void Start()
     {
-        text.text = "X " + Game_Manager.coin_Count;
+        coinCount_text.text = "X " + Game_Manager.coin_Count;
     }
     public void Level()
     {

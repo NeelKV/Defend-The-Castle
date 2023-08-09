@@ -854,10 +854,16 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "1. Your goal is to protect your tower\n2. Enemies will spawn all around
-    you and your tower will attack them \n    automatically.\n3. Upon dying each
-    enemy will drop a random amount of coins which can be\n    used to upgade your
-    tower.\n4. Your total coin count is in the top left corner."
+  m_text: "1. Your goal is to protect your tower, you tower health is shown in top
+    left \n    corner.\n2. Enemies will spawn all around you and your tower will
+    attack them \n    automatically.\n3. Upon dying each enemy will drop a random
+    amount of coins which can be\n    used to upgade your tower. Your total coin
+    count is below your health.\n4. Each enemy has different properties, Blue enemy
+    has 1 Health but 3 \n    Damage, Red enemy has 3 Health but 2 Damage, and Yellow
+    enemy has 5\n    Health and 1 Damage.\n5. There are 7 waves to defend against,
+    if you manage to defend against them \n    all you get to keep the coins you
+    won but if you die then you lose all the \n    coins you collected.\n6. Use 'A'
+    and 'D' keys to rotate the camera."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -971,7 +977,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1, y: -255.367}
+  m_AnchoredPosition: {x: -1, y: -437}
   m_SizeDelta: {x: 284.083, y: 53.266}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2012423508

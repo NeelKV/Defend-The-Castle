@@ -4,25 +4,29 @@ using UnityEngine;
 
 public class Camera_Movement : MonoBehaviour
 {
-    private Transform centerPoint;
+    public Transform centralPoint;  
+    public float moveSpeed = 20f;  
 
-
-    // Start is called before the first frame update
-    void Start()
+    private void Update()
     {
-        centerPoint = GameObject.FindWithTag("Center Point").transform;
+        float rotationAmount = moveSpeed * Time.deltaTime;
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            RotateCamera(rotationAmount);
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            RotateCamera(-rotationAmount);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void RotateCamera(float angle)
     {
-        if(Input.GetAxisRaw("Horizontal")!= 0)
-        {
-            Debug.Log("If true A pressed");
-            this.transform.Rotate(new Vector3(0, 1, 0), Input.GetAxisRaw("Horizontal"));
-        }
-        
-            
-        
+        transform.RotateAround(centralPoint.position, Vector3.up, angle);
+
+        Vector3 lookDirection = centralPoint.position - transform.position;
+        Quaternion newRotation = Quaternion.LookRotation(lookDirection);
+        transform.rotation = newRotation;
     }
 }
