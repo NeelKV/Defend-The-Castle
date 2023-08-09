@@ -5,33 +5,44 @@ using UnityEngine;
 
 public class Archer_Tower : MonoBehaviour
 {
-    public GameObject arrowPrefab;
-    public float arrowSpeed = 5f;
-    public Transform arrowSpawnPoint;
+    [SerializeField]
+    private float towerRange = 4f;
+    
+    [SerializeField]
+    private float currentDamage = 0.9f;
+    
+    [SerializeField]
+    private float shootInterval = 2f;
+    private float lastShootTime = 0f;
 
     private GameObject closestEnemy;
-    //private Transform arrowSpawnPoint;
+    private GameObject rangeCircle;
+    
+    public TextMeshProUGUI tower_Health;
+    public int health;
+
 
     private void Start()
     {
-        //arrowSpawnPoint = transform.Find("ArrowSpawnPoint"); // Create an empty GameObject as a child of the tower to mark arrow spawn point
+        currentDamage = 1;
+        shootInterval = 2f;
+        lastShootTime = 0f;
+        towerRange = 4f;
+        health = 10;
+        rangeCircle = GameObject.Find("Range");
+
     }
 
     private void Update()
     {
+        rangeCircle.transform.localScale = Vector3.one * towerRange * 2f;
+        tower_Health.text = "Health: " + health;
         FindClosestEnemy();
 
-        if (closestEnemy != null)
+        if (closestEnemy != null && Time.time - lastShootTime > shootInterval)
         {
-            Vector3 directionToEnemy = (closestEnemy.transform.position - arrowSpawnPoint.position).normalized;
-            Quaternion rotationToEnemy = Quaternion.LookRotation(directionToEnemy);
-
-            Debug.Log("Direction to Enemy: " + directionToEnemy);
-            Debug.DrawLine(arrowSpawnPoint.position, arrowSpawnPoint.position + directionToEnemy, Color.red, 2f);
-
-            GameObject arrow = Instantiate(arrowPrefab, arrowSpawnPoint.position, rotationToEnemy);
-            Rigidbody arrowRigidbody = arrow.GetComponent<Rigidbody>();
-            arrowRigidbody.velocity = directionToEnemy * arrowSpeed;
+            damageEnemy(closestEnemy.GetComponent<Enemy>());
+            lastShootTime = Time.time;
         }
     }
 
@@ -44,7 +55,7 @@ public class Archer_Tower : MonoBehaviour
         foreach (GameObject enemy in enemies)
         {
             float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
-            if (distanceToEnemy < closestDistance)
+            if (distanceToEnemy < closestDistance && distanceToEnemy <= towerRange)
             {
                 closestDistance = distanceToEnemy;
                 closestEnemy = enemy;
@@ -52,53 +63,43 @@ public class Archer_Tower : MonoBehaviour
         }
     }
 
-
-
-
-
-    /*private Vector3 projectileShootPos;
-    private float range;
-    private Arrow_Behavior AB;
-
-    [SerializeField]
-    private GameObject arrowRef;
-    
-
-    private void Awake()
+    private void damageEnemy(Enemy enemy)
     {
-        projectileShootPos = transform.Find("Arrow_Launch_Pos").position;
-        range = 20f;
-        AB = GetComponent<Arrow_Behavior>();
-
+        enemy.takeDamage(currentDamage);
     }
 
-    private void shoot(Vector3 targetPosition)
+    public void takeDamage(int damage)
     {
-        Debug.Log("shoot called");
-        GameObject projectileArrow = Instantiate(arrowRef);
-        projectileArrow.transform.position = projectileShootPos;
-        projectileArrow.GetComponent<Arrow_Behavior>().Setup(targetPosition);
-        
-    }
-
-    public int shootcount = 0;
-    private void Update()
-    {
-        Enemy enemy = Spawner.GetClosestEnemy(this.transform.position, range);
-        if (enemy != null)
+        health = health - damage;
+        if(health <= 0)
         {
-            Debug.Log("!!!!!!!!!Enemy in range!!!!!!!");
-            shoot(enemy.transform.position);
-            shootcount++;
-            Debug.Log("Shoot fired: " + shootcount);
+            GameObject.Find("Upgrade_Menu").GetComponent<Upgrade_Menu_Controller>().gameOver(0);
         }
-        
     }
 
-    private Enemy GetClosestEnemy()
+    public void upgradeDamage()
     {
-        return Spawner.GetClosestEnemy(this.transform.position, range);
-    }*/
+        if (currentDamage < 3)
+        {
+            currentDamage = currentDamage + 0.2f;
+        }
+    }
+
+    public void upgradeRange()
+    {
+        if (towerRange < 7f)
+        {
+            towerRange = towerRange + 0.5f;
+        }
+    }
+
+    public void upgradeSpeed()
+    {
+        if(shootInterval > 0.5f)
+        {
+            shootInterval = shootInterval - 0.5f;
+        }
+    }
 
 }
 

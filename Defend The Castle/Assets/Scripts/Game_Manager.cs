@@ -6,22 +6,10 @@ using UnityEngine.SceneManagement;
 public class Game_Manager : MonoBehaviour
 {
     public static Game_Manager instance;
+    public Transform damagePopUp_Transform;
 
     public static int coin_Count = 0;
-
-    public static int arrow_damage = 1;
-
-    //following variables will be used to see if towers have been unlocked
-    public static bool char2Unlocked = false;
-    public static bool char3Unlocked = false;
-
-    private int char_Index;
-    public int CharIndex
-    {
-        get { return char_Index; }
-        set { char_Index = value; }
-    }
-
+    public static int last_Coin_Count = 0;
 
     private void Awake()
     {
@@ -37,8 +25,9 @@ public class Game_Manager : MonoBehaviour
     }
 
 
-    public static void coinCount(int count)
+    public void coinCount(int count)
     {
+        last_Coin_Count = count;
         coin_Count += count;
     }
 
@@ -54,6 +43,6 @@ public class Game_Manager : MonoBehaviour
 
     void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
     {
-        //add code to include different towers
+        //add code to include different towers for future updates. Not Included in Demo.
     }
 }
