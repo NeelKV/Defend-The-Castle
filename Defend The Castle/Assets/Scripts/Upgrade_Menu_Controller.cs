@@ -85,7 +85,7 @@ public class Upgrade_Menu_Controller : MonoBehaviour
             rangeLvl.text = "Range: Lv " + levelRange;
         }
 
-        if (levelSpeed == 3)
+        if (levelSpeed == 7)
         {
             speedLvl.text = "Speed: Max";
             speed_button.interactable = false;
@@ -120,7 +120,7 @@ public class Upgrade_Menu_Controller : MonoBehaviour
 
     public void upgradeSpeed()
     {
-        if (levelSpeed < 3 && coins >= costSpeed)
+        if (levelSpeed < 7 && coins >= costSpeed)
         {
             tower.GetComponent<Archer_Tower>().upgradeSpeed();
             levelSpeed++;

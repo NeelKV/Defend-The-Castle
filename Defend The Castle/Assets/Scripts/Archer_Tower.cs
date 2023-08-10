@@ -25,7 +25,7 @@ public class Archer_Tower : MonoBehaviour
     private void Start()
     {
         currentDamage = 1;
-        shootInterval = 2f;
+        shootInterval = 1.5f;
         lastShootTime = 0f;
         towerRange = 4f;
         health = 10;
@@ -95,9 +95,9 @@ public class Archer_Tower : MonoBehaviour
 
     public void upgradeSpeed()
     {
-        if(shootInterval > 0.5f)
+        if(shootInterval > 0.2f)
         {
-            shootInterval = shootInterval - 0.5f;
+            shootInterval = shootInterval - 0.2f;
         }
     }
 
